@@ -1,0 +1,46 @@
+/* Встановлюємо фон для всього тіла сторінки */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg'); /* Шлях до картинки */
+    background-size: cover; /* Зображення покриває весь екран */
+    background-position: center; /* Центруємо зображення */
+    background-attachment: fixed; /* Закріплюємо фон при прокручуванні */
+    color: white; /* Змінюємо колір тексту для контрасту */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.game-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон для контейнера гри */
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.locations {
+    margin-top: 20px;
+}
+
+.location {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.7); /* Легка прозорість для кнопок */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.location:hover {
+    background-color: rgba(255, 255, 255, 1); /* Яскравіший колір при наведенні */
+}
+
+#game-result {
+    margin-top: 20px;
+    font-size: 20px;
+}
