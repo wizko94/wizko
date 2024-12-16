@@ -1,9 +1,10 @@
 /* Встановлюємо фон для всього тіла сторінки */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('background.jpg'); /* Шлях до картинки */
+    background-image: url('https://raw.githubusercontent.com/yourusername/your-repo-name/main/background.jpg'); /* Вставляємо URL зображення */
     background-size: cover; /* Зображення покриває весь екран */
     background-position: center; /* Центруємо зображення */
+    background-repeat: no-repeat; /* Забороняємо повторення картинки */
     background-attachment: fixed; /* Закріплюємо фон при прокручуванні */
     color: white; /* Змінюємо колір тексту для контрасту */
     text-align: center;
@@ -11,32 +12,14 @@ body {
     padding: 0;
 }
 
-.game-container {
-    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон для контейнера гри */
-    padding: 20px;
-    border-radius: 10px;
-    display: inline-block;
+/* Додатково: адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+    body {
+        background-size: contain; /* Зменшуємо зображення, щоб воно не виходило за межі екрану */
+        background-position: top center; /* Встановлюємо положення фону вгорі */
+    }
 }
 
-h1 {
-    font-size: 24px;
-}
-
-.locations {
-    margin-top: 20px;
-}
-
-.location {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: rgba(255, 255, 255, 0.7); /* Легка прозорість для кнопок */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.location:hover {
     background-color: rgba(255, 255, 255, 1); /* Яскравіший колір при наведенні */
 }
 
