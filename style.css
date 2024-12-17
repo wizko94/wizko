@@ -1,7 +1,7 @@
 /* Встановлюємо фон для всього тіла сторінки */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://images.wallpapershq.com/wallpapers/8083/wallpaper_8083_3840x2160.jpg'); /* Вставляємо правильний raw URL зображення */
+    background-image: url('https://images.wallpapershq.com/wallpapers/8083/wallpaper_8083_3840x2160.jpg'); /* Вставляємо URL зображення */
     background-size: cover; /* Зображення покриває весь екран */
     background-position: center; /* Центруємо зображення */
     background-repeat: no-repeat; /* Забороняємо повторення картинки */
