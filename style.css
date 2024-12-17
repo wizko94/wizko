@@ -12,16 +12,68 @@ body {
     padding: 0;
 }
 
-/* Додатково: адаптація для мобільних пристроїв */
-@media (max-width: 768px) {
-    body {
-        background-size: contain; /* Зменшуємо зображення, щоб воно не виходило за межі екрану */
-        background-position: top center; /* Встановлюємо положення фону вгорі */
-    }
+/* Контейнер гри */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Стилі для #game-result */
+/* Заголовок */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Локації */
+.locations {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Кнопки локацій */
+.location {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.6); /* Напівпрозорий чорний фон */
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.location:hover {
+    background-color: rgba(255, 255, 255, 0.5); /* Яскравіша кнопка при наведенні */
+}
+
+/* Результати гри */
 #game-result {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+    body {
+        background-size: contain; /* Зменшуємо зображення для мобільних пристроїв */
+        background-position: top center;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .location {
+        padding: 12px 20px;
+        font-size: 1.2rem;
+    }
+
+    #game-result {
+        font-size: 1.2rem;
+    }
 }
