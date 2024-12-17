@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Риболовля</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .fishing-area {
+            margin-top: 50px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="fishing-area">
+        <h1 id="location-title"></h1>
+        <p>Закиньте вудочку та чекайте...</p>
+        <button onclick="goBack()" class="back-button">⬅ Назад</button>
+    </div>
+
+    <script>
+        // Отримуємо обрану локацію з локального сховища
+        const selectedLocation = localStorage.getItem('selectedLocation');
+
+        // Встановлюємо фон і заголовок залежно від локації
+        if (selectedLocation === 'lake') {
+            document.body.style.backgroundImage = "url('lake.jpg')";
+            document.getElementById('location-title').innerText = "🎣 Риболовля на Озері";
+        } else if (selectedLocation === 'river') {
+            document.body.style.backgroundImage = "url('river.jpg')";
+            document.getElementById('location-title').innerText = "🎣 Риболовля на Річці";
+        } else {
+            document.body.style.backgroundColor = "#222";
+            document.getElementById('location-title').innerText = "Локація не обрана";
+        }
+
+        // Функція повернення до вибору локації
+        function goBack() {
+            window.location.href = "locations.html";
+        }
+    </script>
+</body>
+</html>
