@@ -39,6 +39,15 @@
             cursor: pointer;
         }
 
+        .home-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
         #fish-status {
             font-size: 20px;
             margin-top: 30px;
@@ -63,6 +72,7 @@
         <button id="pull-button" class="action-button" onclick="pullFish()" style="display: none;">🐟 Підтягнути рибу</button>
         <button class="action-button" onclick="window.location.href='backpack.html'">🎒 Рюкзак</button>
         <button class="back-button" onclick="goBack()">⬅ Назад</button>
+        <button class="home-button" onclick="goHome()">🏠 На головну</button>
         <div class="coin-display">💰 Монети: <span id="coin-count">0</span></div>
 
         <div class="welcome-message" id="welcome-message"></div>
@@ -149,6 +159,11 @@
             backpack.push(fish);
             localStorage.setItem('backpack', JSON.stringify(backpack));
             alert(`Ви спіймали ${fish.name} (${fish.weight} кг) за ${fish.price} монет!`);
+        }
+
+        // Повернення на головну сторінку
+        function goHome() {
+            window.location.href = "index.html";
         }
 
         // Повернення до вибору локації
