@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вибір локації</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Вибір локації -->
+    <div class="locations-menu">
+        <h1>Оберіть локацію</h1>
+        <div class="locations">
+            <button onclick="selectLocation('lake')">🏞 Озеро</button>
+            <button onclick="selectLocation('river')">🌊 Річка</button>
+        </div>
+        <button class="back-button" onclick="goBack()">⬅ Назад</button>
+    </div>
+
+    <script>
+        // Telegram API для Web App
+        const telegramApp = window.Telegram.WebApp;
+
+        // Функція вибору локації
+        function selectLocation(location) {
+            // Зберігаємо обрану локацію у локальному сховищі
+            localStorage.setItem('selectedLocation', location);
+
+            // Переходимо до гри (файл fishing.html)
+            window.location.href = "fishing.html";
+        }
+
+        // Функція повернення на головну сторінку
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
