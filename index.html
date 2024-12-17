@@ -3,50 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рибалка в Ерках</title>
+    <title>Риболовля</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .fishing-area {
+            margin-top: 50px;
+        }
+
+        .action-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #fish-status {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        .coin-display {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Головна сторінка -->
-    <div class="main-menu">
-        <h1>Рибалка в Ерках</h1>
-        <div class="menu-buttons">
-            <button onclick="goFishing()">🎣 Рибалить</button>
-            <button onclick="goToBackpack()">🎒 Улов</button>
-            <button onclick="showProfile()">👤 Профіль</button>
-            <button onclick="exitGame()">🚪 Вихід</button>
-        </div>
+    <div class="fishing-area">
+        <h1 id="location-title"></h1>
+        <p id="fish-status">Закиньте вудочку, щоб почати ловити рибу.</p>
+        <button id="cast-button" class="action-button" onclick="startFishing()">🎣 Закинути вудочку</button>
+        <button id="pull-button" class="action-button" onclick="pullFish()" style="display: none;">🐟 Підтягнути рибу</button>
+        <button class="action-button" onclick="window.location.href='backpack.html'">🎒 Рюкзак</button>
+        <button class="back-button" onclick="goBack()">⬅ Назад</button>
+        <div class="coin-display">💰 Монети: <span id="coin-count">0</span></div>
     </div>
 
     <script>
-        // Telegram API для Web App
-        const telegramApp = window.Telegram.WebApp;
+        // Отримуємо обрану локацію з localStorage
+        const selectedLocation = localStorage.getItem('selectedLocation');
+        const fishStatus = document.getElementById('fish-status');
+        const castButton = document.getElementById('cast-button');
+        const pullButton = document.getElementById('pull-button');
+        const coinCountElement = document.getElementById('coin-count');
 
-        // Зчитуємо дані користувача
-        const userName = telegramApp.initDataUnsafe.user?.first_name || "Гравець";
+        let fishBiting = false; // Стан клювання
 
-        // Відображаємо ім'я гравця у консолі (тест)
-        console.log(`Вітаємо, ${userName}!`);
+        // Завантаження монет
+        let coins = parseInt(localStorage.getItem('coins')) || 0;
+        coinCountElement.innerText = coins;
 
-        // Функція для риболовлі
-        function goFishing() {
+        // Встановлюємо фон і заголовок локації
+        if (selectedLocation === 'lake') {
+            document.body.style.backgroundImage = "url('lake.jpg')";
+            document.getElementById('location-title').innerText = "🎣 Риболовля на Озері";
+        } else if (selectedLocation === 'river') {
+            document.body.style.backgroundImage = "url('river.jpg')";
+            document.getElementById('location-title').innerText = "🎣 Риболовля на Річці";
+        }
+
+        // Функція закидання вудочки
+        function startFishing() {
+            fishStatus.innerText = "Чекайте... Риба може клюнути будь-якої миті!";
+            castButton.style.display = "none"; // Ховаємо кнопку закидання
+            fishBiting = false;
+
+            // Випадковий час для клювання (3-8 секунд)
+            const biteTime = Math.floor(Math.random() * 5000) + 3000;
+
+            setTimeout(() => {
+                fishBiting = true;
+                fishStatus.innerText = "🐟 Клює! Швидше підтягніть рибу!";
+                pullButton.style.display = "inline-block"; // Показуємо кнопку підтягування
+            }, biteTime);
+        }
+
+        // Функція підтягування риби
+        function pullFish() {
+            if (fishBiting) {
+                fishStatus.innerText = "🎉 Ви спіймали рибу! Закиньте вудочку ще раз.";
+                pullButton.style.display = "none"; // Ховаємо кнопку підтягування
+                castButton.style.display = "inline-block"; // Показуємо кнопку закидання
+
+                // Додаємо рибу до рюкзака (тимчасово у localStorage)
+                const caughtFish = generateRandomFish();
+                saveFishToBackpack(caughtFish);
+            }
+        }
+
+        // Генерація випадкової риби
+        function generateRandomFish() {
+            const fishTypes = [
+                { name: "Окунь", minWeight: 0.5, maxWeight: 1.5, pricePerKg: 10 },
+                { name: "Щука", minWeight: 2, maxWeight: 5, pricePerKg: 20 },
+                { name: "Короп", minWeight: 1, maxWeight: 4, pricePerKg: 15 }
+            ];
+            const fish = fishTypes[Math.floor(Math.random() * fishTypes.length)];
+            const weight = (Math.random() * (fish.maxWeight - fish.minWeight) + fish.minWeight).toFixed(2);
+            return { name: fish.name, weight, price: (weight * fish.pricePerKg).toFixed(2) };
+        }
+
+        // Збереження риби у рюкзак
+        function saveFishToBackpack(fish) {
+            let backpack = JSON.parse(localStorage.getItem('backpack')) || [];
+            backpack.push(fish);
+            localStorage.setItem('backpack', JSON.stringify(backpack));
+            alert(`Ви спіймали ${fish.name} (${fish.weight} кг) за ${fish.price} монет!`);
+        }
+
+        // Повернення до вибору локації
+        function goBack() {
             window.location.href = "locations.html";
-        }
-
-        // Профіль гравця
-        function showProfile() {
-            alert(`Вітаємо, ${userName}! Це ваш профіль.`);
-        }
-
-        // Вихід з гри
-        function exitGame() {
-            telegramApp.close(); // Закриває Web App у Telegram
-        }
-
-        // Функція для улову
-        function goToBackpack() {
-            window.location.href = "backpack.html";
         }
     </script>
 </body>
