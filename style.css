@@ -1,80 +1,31 @@
-/* Встановлюємо фон для всього тіла сторінки */
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://images.wallpapershq.com/wallpapers/8083/wallpaper_8083_3840x2160.jpg'); /* Вставляємо URL зображення */
-    background-size: cover; /* Зображення покриває весь екран */
-    background-position: center; /* Центруємо зображення */
-    background-repeat: no-repeat; /* Забороняємо повторення картинки */
-    background-attachment: fixed; /* Закріплюємо фон при прокручуванні */
-    color: white; /* Змінюємо колір тексту для контрасту */
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f8ff;
 }
 
-/* Контейнер гри */
 .game-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  text-align: center;
 }
 
-/* Заголовок */
-h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+#fishing-area {
+  margin: 20px 0;
 }
 
-/* Локації */
-.locations {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-/* Кнопки локацій */
-.location {
-    padding: 15px 30px;
-    font-size: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.6); /* Напівпрозорий чорний фон */
-    border: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Додаємо ефект збільшення при наведенні */
-}
-
-.location:hover {
-    background-color: rgba(255, 255, 255, 0.5); /* Яскравіша кнопка при наведенні */
-    transform: scale(1.1); /* Збільшуємо кнопку при наведенні */
-}
-
-/* Результати гри */
-#game-result {
-    margin-top: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-/* Адаптація для мобільних пристроїв */
-@media (max-width: 768px) {
-    body {
-        background-size: contain; /* Зменшуємо зображення для мобільних пристроїв */
-        background-position: top center;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .location {
-        padding: 12px 20px;
-        font-size: 1.2rem;
-    }
-
-    #game-result {
-        font-size: 1.2rem;
-    }
+button:hover {
+  background-color: #45a049;
 }
