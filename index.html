@@ -48,6 +48,11 @@
             font-size: 18px;
             margin-top: 20px;
         }
+
+        .welcome-message {
+            font-size: 24px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -59,21 +64,34 @@
         <button class="action-button" onclick="window.location.href='backpack.html'">🎒 Рюкзак</button>
         <button class="back-button" onclick="goBack()">⬅ Назад</button>
         <div class="coin-display">💰 Монети: <span id="coin-count">0</span></div>
+
+        <div class="welcome-message" id="welcome-message"></div>
     </div>
 
     <script>
-        // Отримуємо обрану локацію з localStorage
+        // Ініціалізація Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Завантажуємо дані користувача
+        const user = tg.initDataUnsafe;
+        const userName = user?.user?.first_name || "Гравець";
+        const userId = user?.user?.id || "";
+
+        // Вітання користувача
+        const welcomeMessage = document.getElementById("welcome-message");
+        welcomeMessage.innerHTML = `Привіт, ${userName}!`;
+
+        // Завантаження монет
+        let coins = parseInt(localStorage.getItem('coins')) || 0;
+        document.getElementById('coin-count').innerText = coins;
+
+        // Вибір локації
         const selectedLocation = localStorage.getItem('selectedLocation');
         const fishStatus = document.getElementById('fish-status');
         const castButton = document.getElementById('cast-button');
         const pullButton = document.getElementById('pull-button');
-        const coinCountElement = document.getElementById('coin-count');
 
-        let fishBiting = false; // Стан клювання
-
-        // Завантаження монет
-        let coins = parseInt(localStorage.getItem('coins')) || 0;
-        coinCountElement.innerText = coins;
+        let fishBiting = false;
 
         // Встановлюємо фон і заголовок локації
         if (selectedLocation === 'lake') {
