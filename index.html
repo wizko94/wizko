@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Риболовля</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Внутрішній стиль (якщо потрібен для тесту) -->
-    <style>
-        body {
-            background-color: red; /* Якщо хочеш перевірити, що стиль працює */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fishing Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Вибери локацію для риболовлі!</h1>
-        <div class="locations">
-            <button class="location" id="lake">Озеро</button>
-            <button class="location" id="river">Річка</button>
-        </div>
-        <div id="game-result"></div>
+  <div class="game-container">
+    <h1>Fishing Game</h1>
+    <div id="location">
+      <p>Current Location: <span id="location-name">Lake</span></p>
     </div>
-    <script src="script.js"></script>
+    <div id="rod">
+      <p>Selected Rod: <span id="rod-name">Basic Rod</span></p>
+    </div>
+    <div id="fishing-area">
+      <img src="assets/fish.png" alt="Fish" id="fish">
+    </div>
+    <button onclick="catchFish()">Catch Fish</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
