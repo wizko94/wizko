@@ -1,7 +1,7 @@
 /* Встановлюємо фон для всього тіла сторінки */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://raw.githubusercontent.com/wizko94/wizko/main/background.jpg'); /* Вставляємо URL зображення */
+    background-image: url('https://github.com/wizko94/wizko/blob/main/background.jpg?raw=true'); /* Вставляємо URL зображення */
     background-size: cover; /* Зображення покриває весь екран */
     background-position: center; /* Центруємо зображення */
     background-repeat: no-repeat; /* Забороняємо повторення картинки */
