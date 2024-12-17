@@ -1,56 +1,53 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Риболовля</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рибалка в Ерках</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div class="game-container">
-    <!-- Фонове зображення -->
-    <div class="background"></div>
-
-    <!-- Заголовок -->
-    <h1 class="game-title">Рибалка в Єрках</h1>
-
-    <!-- Кнопки меню -->
-    <div class="menu">
-      <button class="menu-button" onclick="goToFishing()">
-        <img src="icons/fish.png" alt="Рибалити">
-        <span>Рибалить</span>
-      </button>
-      <button class="menu-button" onclick="openBackpack()">
-        <img src="icons/bucket.png" alt="Улов">
-        <span>Улов</span>
-      </button>
-      <button class="menu-button" onclick="openShop()">
-        <img src="icons/shop.png" alt="Магазин">
-        <span>Магазин</span>
-      </button>
-      <button class="menu-button" onclick="openGear()">
-        <img src="icons/gear.png" alt="Снасті">
-        <span>Снасті</span>
-      </button>
-      <button class="menu-button" onclick="openTournaments()">
-        <img src="icons/tournament.png" alt="Турніри">
-        <span>Турніри</span>
-      </button>
-      <button class="menu-button" onclick="openTasks()">
-        <img src="icons/tasks.png" alt="Завдання">
-        <span>Завдання</span>
-      </button>
-      <button class="menu-button" onclick="openProfile()">
-        <img src="icons/profile.png" alt="Профіль">
-        <span>Профіль</span>
-      </button>
-      <button class="menu-button" onclick="exitGame()">
-        <img src="icons/exit.png" alt="Вихід">
-        <span>Вихід</span>
-      </button>
+    <!-- Головна сторінка -->
+    <div class="main-menu">
+        <h1>Рибалка в Ерках</h1>
+        <div class="menu-buttons">
+            <button onclick="goFishing()">🎣 Рибалить</button>
+            <button onclick="goToBackpack()">🎒 Улов</button>
+            <button onclick="showProfile()">👤 Профіль</button>
+            <button onclick="exitGame()">🚪 Вихід</button>
+        </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script>
+        // Telegram API для Web App
+        const telegramApp = window.Telegram.WebApp;
+
+        // Зчитуємо дані користувача
+        const userName = telegramApp.initDataUnsafe.user?.first_name || "Гравець";
+
+        // Відображаємо ім'я гравця у консолі (тест)
+        console.log(`Вітаємо, ${userName}!`);
+
+        // Функція для риболовлі
+        function goFishing() {
+            window.location.href = "locations.html";
+        }
+
+        // Профіль гравця
+        function showProfile() {
+            alert(`Вітаємо, ${userName}! Це ваш профіль.`);
+        }
+
+        // Вихід з гри
+        function exitGame() {
+            telegramApp.close(); // Закриває Web App у Telegram
+        }
+
+        // Функція для улову
+        function goToBackpack() {
+            window.location.href = "backpack.html";
+        }
+    </script>
 </body>
 </html>
