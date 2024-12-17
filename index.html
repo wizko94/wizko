@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fishing Game</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Риболовля</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="game-container">
-    <h1>Fishing Game</h1>
-    <div id="location">
-      <p>Current Location: <span id="location-name">Lake</span></p>
+    <!-- Фонове зображення -->
+    <div class="background"></div>
+
+    <!-- Заголовок -->
+    <h1 class="game-title">Рибалка в Єрках</h1>
+
+    <!-- Кнопки меню -->
+    <div class="menu">
+      <button class="menu-button" onclick="goToFishing()">
+        <img src="icons/fish.png" alt="Рибалити">
+        <span>Рибалить</span>
+      </button>
+      <button class="menu-button" onclick="openBackpack()">
+        <img src="icons/bucket.png" alt="Улов">
+        <span>Улов</span>
+      </button>
+      <button class="menu-button" onclick="openShop()">
+        <img src="icons/shop.png" alt="Магазин">
+        <span>Магазин</span>
+      </button>
+      <button class="menu-button" onclick="openGear()">
+        <img src="icons/gear.png" alt="Снасті">
+        <span>Снасті</span>
+      </button>
+      <button class="menu-button" onclick="openTournaments()">
+        <img src="icons/tournament.png" alt="Турніри">
+        <span>Турніри</span>
+      </button>
+      <button class="menu-button" onclick="openTasks()">
+        <img src="icons/tasks.png" alt="Завдання">
+        <span>Завдання</span>
+      </button>
+      <button class="menu-button" onclick="openProfile()">
+        <img src="icons/profile.png" alt="Профіль">
+        <span>Профіль</span>
+      </button>
+      <button class="menu-button" onclick="exitGame()">
+        <img src="icons/exit.png" alt="Вихід">
+        <span>Вихід</span>
+      </button>
     </div>
-    <div id="rod">
-      <p>Selected Rod: <span id="rod-name">Basic Rod</span></p>
-    </div>
-    <div id="fishing-area">
-      <img src="assets/fish.png" alt="Fish" id="fish">
-    </div>
-    <button onclick="catchFish()">Catch Fish</button>
   </div>
 
   <script src="script.js"></script>
