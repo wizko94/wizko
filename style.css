@@ -43,11 +43,12 @@ h1 {
     border-radius: 10px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Додаємо ефект збільшення при наведенні */
 }
 
 .location:hover {
     background-color: rgba(255, 255, 255, 0.5); /* Яскравіша кнопка при наведенні */
+    transform: scale(1.1); /* Збільшуємо кнопку при наведенні */
 }
 
 /* Результати гри */
