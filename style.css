@@ -1,7 +1,7 @@
 /* Встановлюємо фон для всього тіла сторінки */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://raw.githubusercontent.com/yourusername/your-repo-name/main/background.jpg'); /* Вставляємо URL зображення */
+    background-image: url('https://raw.githubusercontent.com/wizko94/wizko/main/background.jpg'); /* Вставляємо URL зображення */
     background-size: cover; /* Зображення покриває весь екран */
     background-position: center; /* Центруємо зображення */
     background-repeat: no-repeat; /* Забороняємо повторення картинки */
@@ -20,7 +20,12 @@ body {
     }
 }
 
-    background-color: rgba(255, 255, 255, 1); /* Яскравіший колір при наведенні */
+/* Ставимо стилі для #game-result */
+#game-result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
 }
 
 #game-result {
