@@ -11,14 +11,15 @@
         <h1>Гра: Рибалка</h1>
         <div id="gameArea">
             <button onclick="startFishing()">Почати риболовлю</button>
-            <div id="locationSelect" class="hidden">
-                <button onclick="selectLocation('Озеро')">Озеро</button>
-                <button onclick="selectLocation('Річка')">Річка</button>
-            </div>
-            <div id="fishCaught"></div>
-            <div id="fishAnimation" class="hidden">
-                <img src="assets/fish1.png" id="caughtFish" alt="Caught Fish" />
-            </div>
+        </div>
+        <div id="locationSelect" class="hidden">
+            <h2>Виберіть локацію:</h2>
+            <button onclick="selectLocation('Озеро')">Озеро</button>
+            <button onclick="selectLocation('Річка')">Річка</button>
+        </div>
+        <div id="fishCaught"></div>
+        <div id="fishAnimation" class="hidden">
+            <img src="assets/fish1.png" id="caughtFish" alt="Caught Fish" />
         </div>
     </div>
 
