@@ -43,6 +43,14 @@
             font-size: 20px;
             margin-top: 30px;
         }
+
+        .fish {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: bottom 0.2s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -54,14 +62,20 @@
         <button class="back-button" onclick="goBack()">⬅ Назад</button>
     </div>
 
+    <div id="fish" class="fish" style="display: none;">
+        <img src="fish.png" alt="Риба" width="50">
+    </div>
+
     <script>
         // Отримуємо обрану локацію з localStorage
         const selectedLocation = localStorage.getItem('selectedLocation');
         const fishStatus = document.getElementById('fish-status');
         const castButton = document.getElementById('cast-button');
         const pullButton = document.getElementById('pull-button');
+        const fish = document.getElementById('fish');
 
         let fishBiting = false; // Стан клювання
+        let clickCount = 0; // Лічильник натискань
 
         // Встановлюємо фон і заголовок локації
         if (selectedLocation === 'lake') {
@@ -77,6 +91,7 @@
             fishStatus.innerText = "Чекайте... Риба може клюнути будь-якої миті!";
             castButton.style.display = "none"; // Ховаємо кнопку закидання
             fishBiting = false;
+            clickCount = 0; // Скидаємо лічильник кліків
 
             // Випадковий час для клювання (3-8 секунд)
             const biteTime = Math.floor(Math.random() * 5000) + 3000;
@@ -85,19 +100,29 @@
                 fishBiting = true;
                 fishStatus.innerText = "🐟 Клює! Швидше підтягніть рибу!";
                 pullButton.style.display = "inline-block"; // Показуємо кнопку підтягування
+                fish.style.display = "block"; // Показуємо рибу
             }, biteTime);
         }
 
         // Функція підтягування риби
         function pullFish() {
-            if (fishBiting) {
-                fishStatus.innerText = "🎉 Ви спіймали рибу! Закиньте вудочку ще раз.";
-                pullButton.style.display = "none"; // Ховаємо кнопку підтягування
-                castButton.style.display = "inline-block"; // Показуємо кнопку закидання
+            clickCount++;
 
-                // Додаємо рибу до рюкзака (тимчасово у localStorage)
-                const caughtFish = generateRandomFish();
-                saveFishToBackpack(caughtFish);
+            if (fishBiting && clickCount <= 10) {
+                // Риба підтягується вгору
+                let distance = clickCount * 10; // Відстань для підняття
+                fish.style.bottom = `${distance}px`;
+
+                // Якщо після 10 натискань риба підтягнута, завершуємо ловлю
+                if (clickCount === 10) {
+                    fishStatus.innerText = "🎉 Ви спіймали рибу! Закиньте вудочку ще раз.";
+                    pullButton.style.display = "none"; // Ховаємо кнопку підтягування
+                    castButton.style.display = "inline-block"; // Показуємо кнопку закидання
+
+                    // Додаємо рибу до рюкзака
+                    const caughtFish = generateRandomFish();
+                    saveFishToBackpack(caughtFish);
+                }
             }
         }
 
