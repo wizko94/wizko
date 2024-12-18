@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рибалка в Telegram</title>
+    <title>Рибалка в Ерках</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Гра: Рибалка</h1>
-        <div id="gameArea">
-            <button onclick="startFishing()">Почати риболовлю</button>
-        </div>
-        <div id="locationSelect" class="hidden">
-            <h2>Виберіть локацію:</h2>
-            <button onclick="selectLocation('Озеро')">Озеро</button>
-            <button onclick="selectLocation('Річка')">Річка</button>
-        </div>
-        <div id="fishCaught"></div>
-        <div id="fishAnimation" class="hidden">
-            <img src="assets/fish1.png" id="caughtFish" alt="Caught Fish" />
+        <h1 class="game-title">Рибалка в Ерках</h1>
+        <div class="buttons-container">
+            <div class="button"><img src="fish.png" alt="Рибачить"><span>Рибачить</span></div>
+            <div class="button"><img src="bucket.png" alt="Улов"><span>Улов</span></div>
+            <div class="button"><img src="store.png" alt="Магазин"><span>Магазин</span></div>
+            <div class="button"><img src="tackle.png" alt="Снасті"><span>Снасті</span></div>
+            <div class="button"><img src="trophy.png" alt="Турніри"><span>Турніри</span></div>
+            <div class="button"><img src="task.png" alt="Завдання"><span>Завдання</span></div>
+            <div class="button"><img src="profile.png" alt="Профіль"><span>Профіль</span></div>
+            <div class="button"><img src="exit.png" alt="Вихід"><span>Вихід</span></div>
         </div>
     </div>
-
-    <script src="game.js"></script>
 </body>
 </html>
