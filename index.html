@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Риболовля</title>
+    <title>Ловити Рибу</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -12,49 +12,67 @@
             padding: 0;
             background-size: cover;
             background-position: center;
-            color: white;
             text-align: center;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        .fishing-area {
-            margin-top: 50px;
+        #catch-area {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            background: url('https://example.com/fishing-background.jpg') center/cover no-repeat;
+            border: 2px solid #fff;
+            margin-bottom: 20px;
+            cursor: pointer;
         }
 
-        .action-button {
-            margin-top: 20px;
-            padding: 10px;
+        #fish {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            background-color: #FF5733;
+            border-radius: 50%;
+            transition: bottom 0.3s;
+        }
+
+        #fish-caught {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            display: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #catch-button {
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            cursor: pointer;
             font-size: 18px;
-        }
-
-        .back-button {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #444;
-            color: white;
-            border: none;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         .home-button {
-            margin-top: 20px;
             padding: 10px;
             background-color: #2196F3;
             color: white;
             border: none;
             cursor: pointer;
-        }
-
-        #fish-status {
-            font-size: 20px;
-            margin-top: 30px;
-        }
-
-        .coin-display {
-            font-size: 18px;
             margin-top: 20px;
         }
 
@@ -65,110 +83,49 @@
     </style>
 </head>
 <body>
-    <div class="fishing-area">
-        <h1 id="location-title"></h1>
-        <p id="fish-status">Закиньте вудочку, щоб почати ловити рибу.</p>
-        <button id="cast-button" class="action-button" onclick="startFishing()">🎣 Закинути вудочку</button>
-        <button id="pull-button" class="action-button" onclick="pullFish()" style="display: none;">🐟 Підтягнути рибу</button>
-        <button class="action-button" onclick="window.location.href='backpack.html'">🎒 Рюкзак</button>
-        <button class="back-button" onclick="goBack()">⬅ Назад</button>
-        <button class="home-button" onclick="goHome()">🏠 На головну</button>
-        <div class="coin-display">💰 Монети: <span id="coin-count">0</span></div>
-
-        <div class="welcome-message" id="welcome-message"></div>
+    <div class="welcome-message" id="welcome-message"></div>
+    <div id="catch-area" onclick="catchFish()">
+        <div id="fish"></div>
+        <div id="fish-caught">Рибу спіймано!</div>
     </div>
+    <button class="home-button" onclick="goHome()">🏠 На головну</button>
 
     <script>
-        // Ініціалізація Telegram Web App
         const tg = window.Telegram.WebApp;
 
-        // Завантажуємо дані користувача
-        const user = tg.initDataUnsafe; // Всі дані користувача доступні тут
-        const userName = user?.user?.first_name || "Гравець"; // Витягуємо ім'я користувача
-        const userId = user?.user?.id || "";
+        // Завантаження нікнейму з localStorage
+        let userNickname = localStorage.getItem('userNickname');
 
-        // Вітання користувача
-        const welcomeMessage = document.getElementById("welcome-message");
-        welcomeMessage.innerHTML = `Привіт, ${userName}!`;
-
-        // Завантаження монет
-        let coins = parseInt(localStorage.getItem('coins')) || 0;
-        document.getElementById('coin-count').innerText = coins;
-
-        // Вибір локації
-        const selectedLocation = localStorage.getItem('selectedLocation');
-        const fishStatus = document.getElementById('fish-status');
-        const castButton = document.getElementById('cast-button');
-        const pullButton = document.getElementById('pull-button');
-
-        let fishBiting = false;
-
-        // Встановлюємо фон і заголовок локації
-        if (selectedLocation === 'lake') {
-            document.body.style.backgroundImage = "url('lake.jpg')";
-            document.getElementById('location-title').innerText = "🎣 Риболовля на Озері";
-        } else if (selectedLocation === 'river') {
-            document.body.style.backgroundImage = "url('river.jpg')";
-            document.getElementById('location-title').innerText = "🎣 Риболовля на Річці";
+        if (!userNickname) {
+            // Якщо нікнейм ще не заданий, показуємо форму вибору нікнейму
+            window.location.href = 'locations.html';  // Перенаправляємо на вибір нікнейму
+        } else {
+            // Виведення привітання з наявним нікнеймом
+            const welcomeMessage = document.getElementById('welcome-message');
+            welcomeMessage.innerHTML = `Привіт, ${userNickname}!`;
         }
 
-        // Функція закидання вудочки
-        function startFishing() {
-            fishStatus.innerText = "Чекайте... Риба може клюнути будь-якої миті!";
-            castButton.style.display = "none"; // Ховаємо кнопку закидання
-            fishBiting = false;
+        let clickCount = 0; // Лічильник натискань
+        const fish = document.getElementById('fish');
+        const fishCaughtMessage = document.getElementById('fish-caught');
 
-            // Випадковий час для клювання (3-8 секунд)
-            const biteTime = Math.floor(Math.random() * 5000) + 3000;
+        // Функція для ловлення риби
+        function catchFish() {
+            clickCount++;
 
-            setTimeout(() => {
-                fishBiting = true;
-                fishStatus.innerText = "🐟 Клює! Швидше підтягніть рибу!";
-                pullButton.style.display = "inline-block"; // Показуємо кнопку підтягування
-            }, biteTime);
-        }
+            // Кожне натискання підтягує рибу вгору
+            let distance = clickCount * 10; // Збільшуємо на 10px за кожне натискання
+            fish.style.bottom = `${distance}px`; // Переміщаємо рибу вгору
 
-        // Функція підтягування риби
-        function pullFish() {
-            if (fishBiting) {
-                fishStatus.innerText = "🎉 Ви спіймали рибу! Закиньте вудочку ще раз.";
-                pullButton.style.display = "none"; // Ховаємо кнопку підтягування
-                castButton.style.display = "inline-block"; // Показуємо кнопку закидання
-
-                // Додаємо рибу до рюкзака (тимчасово у localStorage)
-                const caughtFish = generateRandomFish();
-                saveFishToBackpack(caughtFish);
+            // Якщо риба піднялася достатньо, показуємо повідомлення про спійману рибу
+            if (distance >= 200) { // Якщо риба піднялася на 200px, значить спіймана
+                fishCaughtMessage.style.display = 'block'; // Показуємо текст "Рибу спіймано"
             }
-        }
-
-        // Генерація випадкової риби
-        function generateRandomFish() {
-            const fishTypes = [
-                { name: "Окунь", minWeight: 0.5, maxWeight: 1.5, pricePerKg: 10 },
-                { name: "Щука", minWeight: 2, maxWeight: 5, pricePerKg: 20 },
-                { name: "Короп", minWeight: 1, maxWeight: 4, pricePerKg: 15 }
-            ];
-            const fish = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-            const weight = (Math.random() * (fish.maxWeight - fish.minWeight) + fish.minWeight).toFixed(2);
-            return { name: fish.name, weight, price: (weight * fish.pricePerKg).toFixed(2) };
-        }
-
-        // Збереження риби у рюкзак
-        function saveFishToBackpack(fish) {
-            let backpack = JSON.parse(localStorage.getItem('backpack')) || [];
-            backpack.push(fish);
-            localStorage.setItem('backpack', JSON.stringify(backpack));
-            alert(`Ви спіймали ${fish.name} (${fish.weight} кг) за ${fish.price} монет!`);
         }
 
         // Повернення на головну сторінку
         function goHome() {
             window.location.href = "index.html";
-        }
-
-        // Повернення до вибору локації
-        function goBack() {
-            window.location.href = "locations.html";
         }
     </script>
 </body>
