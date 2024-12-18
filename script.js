@@ -1,5 +1,6 @@
 // Функція для старту гри
 function startFishing() {
+    // При натисканні на "Почати риболовлю" приховуємо цю кнопку і показуємо вибір локацій
     document.getElementById("gameArea").innerHTML = `
         <h2>Виберіть локацію для риболовлі:</h2>
         <button onclick="selectLocation('Озеро')">Озеро</button>
@@ -12,8 +13,8 @@ function selectLocation(location) {
     document.getElementById("locationSelect").classList.add('hidden');  // Сховати кнопки вибору
     document.getElementById("fishCaught").innerHTML = `Ви на локації: ${location}. Ловіть рибу!`;
 
-    // Додаємо кнопки для вибору удочки та наживки
-    document.getElementById("gameArea").innerHTML += `
+    // Додаємо кнопки для вибору наживки
+    document.getElementById("gameArea").innerHTML = `
         <button onclick="catchFish('${location}', 'Черв'як')">Ловити з черв'яком</button>
         <button onclick="catchFish('${location}', 'Комахи')">Ловити з комахами</button>
     `;
@@ -21,14 +22,18 @@ function selectLocation(location) {
 
 // Функція для ловлі риби
 function catchFish(location, bait) {
-    const fishList = ['Щука', 'Карп', 'Окунь'];
-    const randomFish = fishList[Math.floor(Math.random() * fishList.length)];
-    const result = `Ви спіймали ${randomFish} на ${bait} в ${location}!`;
-    
-    // Виводимо результат
-    document.getElementById("fishCaught").innerHTML = result;
+    // Показуємо анімацію риби
+    document.getElementById("fishAnimation").classList.remove('hidden');
+    const fish = document.createElement("img");
+    fish.src = "assets/fish1.png";  // Можна додавати різні риби
+    fish.classList.add("fish");
+    document.getElementById("fishAnimation").appendChild(fish);
 
-    // Можна додати звуковий ефект
-    const audio = new Audio('assets/sound.mp3');
-    audio.play();
+    // Затримка перед тим, як показати результат
+    setTimeout(function() {
+        const result = `Ви спіймали рибу на ${bait} в ${location}!`;
+        document.getElementById("fishCaught").innerHTML = result;
+        // Приховуємо анімацію після ловлі
+        document.getElementById("fishAnimation").classList.add('hidden');
+    }, 2000);  // Затримка на 2 секунди для анімації
 }
