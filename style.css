@@ -32,3 +32,17 @@ button:hover {
     color: #333;
     margin-top: 20px;
 }
+
+#fishAnimation {
+    position: relative;
+    margin-top: 20px;
+}
+
+@keyframes fishAnimation {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200px); }
+}
+
+.fish {
+    animation: fishAnimation 2s ease-out;
+}
