@@ -3,36 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вибір локації</title>
+    <title>Локації для Риболовлі</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .location-button {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .home-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Вибір локації -->
-    <div class="locations-menu">
-        <h1>Оберіть локацію</h1>
-        <div class="locations">
-            <button onclick="selectLocation('lake')">🏞 Озеро</button>
-            <button onclick="selectLocation('river')">🌊 Річка</button>
-        </div>
-        <button class="back-button" onclick="goBack()">⬅ Назад</button>
+    <div class="location-area">
+        <h1>Вибір локації для риболовлі</h1>
+        <p>Обери місце для риболовлі:</p>
+
+        <button class="location-button" onclick="selectLocation('lake')">Озеро</button>
+        <button class="location-button" onclick="selectLocation('river')">Річка</button>
+
+        <button class="home-button" onclick="goHome()">🏠 На головну</button>
+
+        <div class="welcome-message" id="welcome-message"></div>
     </div>
 
     <script>
-        // Telegram API для Web App
-        const telegramApp = window.Telegram.WebApp;
+        // Ініціалізація Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Завантажуємо дані користувача
+        const user = tg.initDataUnsafe; // Всі дані користувача доступні тут
+        const userName = user?.user?.first_name || "Гравець"; // Витягуємо ім'я користувача
+
+        // Вітання користувача
+        const welcomeMessage = document.getElementById("welcome-message");
+        welcomeMessage.innerHTML = `Привіт, ${userName}!`;
 
         // Функція вибору локації
         function selectLocation(location) {
-            // Зберігаємо обрану локацію у локальному сховищі
             localStorage.setItem('selectedLocation', location);
-
-            // Переходимо до гри (файл fishing.html)
-            window.location.href = "fishing.html";
+            window.location.href = "index.html"; // Переходимо на головну сторінку
         }
 
-        // Функція повернення на головну сторінку
-        function goBack() {
+        // Повернення на головну сторінку
+        function goHome() {
             window.location.href = "index.html";
         }
     </script>
